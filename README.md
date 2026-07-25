@@ -25,7 +25,7 @@ Built and tested against a real Red Herring Prospectus (an Indian IPO offer docu
 ## What it does
 
 - Reads every `.docx` file placed in `input/`
-- Detects 9 categories of PII across the document body, tables (including nested tables), headers, and footers
+- Detects 9 categories of PII across the document body, tables, headers, and footers
 - Replaces each item with a fake value, kept consistent across the whole document
 - Writes the redacted copy to `output/`
 - Prints a per-type count of what was replaced
