@@ -10,17 +10,16 @@ Built and tested against a real Red Herring Prospectus (an Indian IPO offer docu
 
 **Before redaction**
 
-![Before redaction](screenshots/before.png)
+<img width="581" height="301" alt="image" src="https://github.com/user-attachments/assets/b955e2a2-8ff6-48be-9772-2f41b5eacfaa" />
 
 **After redaction**
 
-![After redaction](screenshots/after.png)
+<img width="576" height="269" alt="image" src="https://github.com/user-attachments/assets/fef83ae9-5fb7-4867-9bec-6f29585d684e" />
+
 
 **Console output**
 
-![Console output](screenshots/console.png)
-
-> To make the images above appear, create a `screenshots/` folder in the repo root and add `before.png`, `after.png`, and `console.png` (same section of the document, before and after; the terminal output is optional). The links are already wired up — no other change needed.
+<img width="880" height="143" alt="image" src="https://github.com/user-attachments/assets/fb463c2d-ef19-466a-a859-6945d68a6adf" />
 
 ---
 
