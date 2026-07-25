@@ -14,8 +14,7 @@ Built and tested against a real Red Herring Prospectus (an Indian IPO offer docu
 
 **After redaction**
 
-<img width="576" height="269" alt="image" src="https://github.com/user-attachments/assets/fef83ae9-5fb7-4867-9bec-6f29585d684e" />
-
+<img width="590" height="346" alt="image" src="https://github.com/user-attachments/assets/ae4623f1-3f09-4581-a52d-79d3901d31e4" />
 
 **Console output**
 
