@@ -52,7 +52,7 @@ No command-line arguments, no configuration step place a file in `input/` and ru
 
 ## Approach
 
-**Structured PII** (email, phone, SSN, credit card, IP, date of birth) is matched with regex, each backed by a validation step that plain pattern-matching can't express on its own:
+**Structured PII** (email, phone, SSN, credit card, IP, date of birth) is matched with regex, each backed by a validation step that plain pattern matching can't express on its own:
 
 - Credit cards are checked against a **Luhn checksum** — without it, long digit runs in financial tables (share counts, capital figures) get flagged as cards.
 - IP addresses are checked for **valid octet ranges** (≤ 255) — without it, version-like strings such as `2.16.1.3` match the pattern just as well as a real address.
