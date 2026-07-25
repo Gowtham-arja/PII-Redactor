@@ -106,7 +106,7 @@ src/main/java/com/redactor/
     └── DocxProcessor.java        reads/writes the .docx, run-splitting logic
 ```
 
-Every detector implements the same two-method `PiiDetector` interface. Spring collects every `@Component` that implements it into one injected list — adding a new PII type is one new class, nothing else changes.
+Every detector implements the same two-method `PiiDetector` interface. Spring collects every `@Component` that implements it into one injected list adding a new PII type is one new class, nothing else changes.
 
 ---
 
@@ -133,18 +133,18 @@ Done. Replacements by type:
 
 ## Known limitations & trade-offs
 
-- **Organization/person redaction depends on the gazetteer harvest.** A name that only ever appears in an all-caps, comma-separated cover-page list (rather than in a `Mr. X` / `Contact Person:` form elsewhere in the document) won't be picked up — a known false negative.
-- **Addresses are anchored on the PIN code and expand backward only** — a trailing "State, Country" that follows the PIN code isn't captured.
+- **Organization/person redaction depends on the gazetteer harvest.** A name that only ever appears in an all  caps, comma-separated cover-page list (rather than in a `Mr. X` / `Contact Person:` form elsewhere in the document) won't be picked up a known false negative.
+- **Addresses are anchored on the PIN code and expand backward only** a trailing "State, Country" that follows the PIN code isn't captured.
 - **Dates of birth require a nearby cue phrase.** A birth date stated with no such cue nearby is a deliberate miss, chosen to avoid redacting the document's other few hundred unrelated dates.
-- **Organizations need a legal suffix** (Private Limited / Limited / LLP / Trust / Ltd) to be recognized — an informal reference to a company without that suffix nearby won't match.
-- **Redacted paragraphs take on one formatting style.** If a paragraph mixed bold and non-bold text, the redacted version isn't split back out — everything after redaction follows the first run's formatting.
-- **SSN, credit card, and IP address detectors had zero real instances to validate against** in the prospectus used for testing — expected, since none of those are typically present in this type of document. Each detector's logic (Luhn, octet range, SSA rules) was reasoned through and validated against constructed examples instead.
+- **Organizations need a legal suffix** (Private Limited / Limited / LLP / Trust / Ltd) to be recognized an informal reference to a company without that suffix nearby won't match.
+- **Redacted paragraphs take on one formatting style.** If a paragraph mixed bold and non-bold text, the redacted version isn't split back out everything after redaction follows the first run's formatting.
+- **SSN, credit card, and IP address detectors had zero real instances to validate against** in the prospectus used for testing expected, since none of those are typically present in this type of document. Each detector's logic (Luhn, octet range, SSA rules) was reasoned through and validated against constructed examples instead.
 
 ---
 
 ## Tested against
 
-Manually spot-checked against a real ~56,000-word Red Herring Prospectus, which contains roughly 50+ email addresses, 30+ phone numbers, hundreds of company-name mentions, and 200+ unrelated dates — and, as expected for this document type, zero SSNs, credit card numbers, or IP addresses.
+Manually spot-checked against a real ~56,000-word Red Herring Prospectus, which contains roughly 50+ email addresses, 30+ phone numbers, hundreds of company-name mentions, and 200+ unrelated dates and, as expected for this document type, zero SSNs, credit card numbers, or IP addresses.
 
 ---
 
