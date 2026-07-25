@@ -30,7 +30,7 @@ Built and tested against a real Red Herring Prospectus (an Indian IPO offer docu
 - Writes the redacted copy to `output/`
 - Prints a per-type count of what was replaced
 
-No command-line arguments, no configuration step — place a file in `input/` and run the jar.
+No command-line arguments, no configuration step place a file in `input/` and run the jar.
 
 ---
 
@@ -44,8 +44,8 @@ No command-line arguments, no configuration step — place a file in `input/` an
 | Credit card | Regex + Luhn checksum | `4532 0151 1283 0366` → `4000 0000 0000 0001` |
 | IP address | Regex + octet range check | `192.168.10.55` → `10.0.0.1` |
 | Date of birth | Regex, only near a birth-context cue | `Date of Birth: 4 May 1985` → `Date of Birth: 05 January 1990` |
-| Physical address | Anchored on a 6-digit PIN code | `4, MG Road, Pune 411001` → `12 Example Street, Sample City 100012` |
-| Person name | Two-pass gazetteer | `Rohan Mehta` → `John Doe` |
+| Physical address | Anchored on a 6-digit PIN code | `201, Tower 2, Montreal Business Centre, Off Pallod Farms, Baner Pune – 411045 Maharashtra, India` → `19 Example Street, Sample City 100019 Maharashtra, India` |
+| Person name | Two-pass gazetteer | `Sarthak Malvadkar` → `Jane Smith` |
 | Organization name | Two-pass gazetteer | `Sunrise Textiles Private Limited` → `Acme Metals Limited`|
 
 ---
