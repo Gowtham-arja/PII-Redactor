@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.11</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.redactor</groupId>
+    <artifactId>redactor</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>pii-redactor</name>
+    <description>PII detection and pseudonymisation for .docx documents</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <poi.version>5.4.0</poi.version>
+    </properties>
+
+    <dependencies>
+        <!-- Plain Boot starter: deliberately NOT spring-boot-starter-web,
+             which would start an embedded Tomcat and keep the process alive
+             instead of running once and exiting. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Reads and writes .docx -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Produces the runnable fat jar: target/redactor-1.0.0.jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

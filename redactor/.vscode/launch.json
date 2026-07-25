@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch RedactorApplication",
+      "request": "launch",
+      "mainClass": "com.redactor.RedactorApplication",
+      "projectName": "redactor",
+      "classPaths": [
+        "${workspaceFolder}/target/classes",
+        "${workspaceFolder}/target/dependency/*"
+      ]
+    }
+  ]
+}
