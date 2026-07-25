@@ -54,12 +54,12 @@ No command-line arguments, no configuration step place a file in `input/` and ru
 
 **Structured PII** (email, phone, SSN, credit card, IP, date of birth) is matched with regex, each backed by a validation step that plain pattern matching can't express on its own:
 
-- Credit cards are checked against a **Luhn checksum** — without it, long digit runs in financial tables (share counts, capital figures) get flagged as cards.
-- IP addresses are checked for **valid octet ranges** (≤ 255) — without it, version-like strings such as `2.16.1.3` match the pattern just as well as a real address.
+- Credit cards are checked against a **Luhn checksum** without it, long digit runs in financial tables (share counts, capital figures) get flagged as cards.
+- IP addresses are checked for **valid octet ranges** (≤ 255) without it, version like strings such as `2.16.1.3` match the pattern just as well as a real address.
 - SSNs are checked against the **SSA's own allocation rules** (area 000/666/900–999, group 00, and serial 0000 are never issued).
-- Dates are only redacted as a **date of birth** if they sit within ~40 characters of an explicit cue ("date of birth", "born on", "DOB"). The source document has 200+ unrelated dates filings, board resolutions, bid windows — and blanket-redacting all of them would make the document unreadable for no privacy benefit.
+- Dates are only redacted as a **date of birth** if they sit within ~40 characters of an explicit cue ("date of birth", "born on", "DOB"). The source document has 200+ unrelated dates filings, board resolutions, bid windows and blanket-redacting all of them would make the document unreadable for no privacy benefit.
 
-**Unstructured PII** (person names, organization names) uses a **two-pass gazetteer** instead of a general-purpose NER model:
+**Unstructured PII** (person names, organization names) uses a **two-pass gazetteer** instead of a general purpose NER model:
 
 1. **Harvest** scan the whole document once for the handful of fixed phrasings a legal document like this introduces its people and companies with: `Contact Person: X`, `Mr./Ms./Dr. X`, `X Private Limited`, `X LLP`, and so on. Collect every name found this way into a dictionary.
 2. **Match & replace** scan every paragraph and replace any occurrence of a harvested name, **longest name first**, so `Kushal Subbayya Hegde` is consumed before the shorter `Kushal Hegde` can be mistaken for a different person.
