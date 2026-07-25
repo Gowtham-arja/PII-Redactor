@@ -57,20 +57,20 @@ No command-line arguments, no configuration step place a file in `input/` and ru
 - Credit cards are checked against a **Luhn checksum** — without it, long digit runs in financial tables (share counts, capital figures) get flagged as cards.
 - IP addresses are checked for **valid octet ranges** (≤ 255) — without it, version-like strings such as `2.16.1.3` match the pattern just as well as a real address.
 - SSNs are checked against the **SSA's own allocation rules** (area 000/666/900–999, group 00, and serial 0000 are never issued).
-- Dates are only redacted as a **date of birth** if they sit within ~40 characters of an explicit cue ("date of birth", "born on", "DOB"). The source document has 200+ unrelated dates — filings, board resolutions, bid windows — and blanket-redacting all of them would make the document unreadable for no privacy benefit.
+- Dates are only redacted as a **date of birth** if they sit within ~40 characters of an explicit cue ("date of birth", "born on", "DOB"). The source document has 200+ unrelated dates filings, board resolutions, bid windows — and blanket-redacting all of them would make the document unreadable for no privacy benefit.
 
 **Unstructured PII** (person names, organization names) uses a **two-pass gazetteer** instead of a general-purpose NER model:
 
-1. **Harvest** — scan the whole document once for the handful of fixed phrasings a legal document like this introduces its people and companies with: `Contact Person: X`, `Mr./Ms./Dr. X`, `X Private Limited`, `X LLP`, and so on. Collect every name found this way into a dictionary.
-2. **Match & replace** — scan every paragraph and replace any occurrence of a harvested name, **longest name first**, so `Kushal Subbayya Hegde` is consumed before the shorter `Kushal Hegde` can be mistaken for a different person.
+1. **Harvest** scan the whole document once for the handful of fixed phrasings a legal document like this introduces its people and companies with: `Contact Person: X`, `Mr./Ms./Dr. X`, `X Private Limited`, `X LLP`, and so on. Collect every name found this way into a dictionary.
+2. **Match & replace** scan every paragraph and replace any occurrence of a harvested name, **longest name first**, so `Kushal Subbayya Hegde` is consumed before the shorter `Kushal Hegde` can be mistaken for a different person.
 
 This was a deliberate choice over spaCy/Presidio/OpenNLP: a prospectus *declares* its own entities in structured form, and reading those declarations directly is more reliable here than a statistical model guessing from surrounding context.
 
-**Consistency** — a `PseudonymGenerator` remembers every fake value it hands out, keyed by the normalized real value, so the same person or company reads the same way everywhere in the document. Person names are keyed by first + last name specifically, so a full name and its shortened form later in the text still resolve to the same alias.
+**Consistency** a `PseudonymGenerator` remembers every fake value it hands out, keyed by the normalized real value, so the same person or company reads the same way everywhere in the document. Person names are keyed by first + last name specifically, so a full name and its shortened form later in the text still resolve to the same alias.
 
-**Overlap resolution** — detectors sometimes disagree on the same span (an email's domain can also look like part of a company name). Matches are ranked by PII-type certainty first, then by length, and anything overlapping a match already kept is discarded.
+**Overlap resolution** detectors sometimes disagree on the same span (an email's domain can also look like part of a company name). Matches are ranked by PII-type certainty first, then by length, and anything overlapping a match already kept is discarded.
 
-**Docx-safe rewriting** — Word can silently split one sentence across several formatting "runs" (from edits or spell-check), so a name could straddle a split invisibly. Each paragraph is stitched into a single string, redacted, and the result written back into the first run, clearing the rest. Trade-off: if a paragraph mixed formatting (part bold, part not), the redacted text takes on only the first run's formatting.
+**Docx-safe rewriting** Word can silently split one sentence across several formatting "runs" (from edits or spell-check), so a name could straddle a split invisibly. Each paragraph is stitched into a single string, redacted, and the result written back into the first run, clearing the rest. Trade-off: if a paragraph mixed formatting (part bold, part not), the redacted text takes on only the first run's formatting.
 
 ---
 
@@ -80,7 +80,6 @@ This was a deliberate choice over spaCy/Presidio/OpenNLP: a prospectus *declares
 - **Spring Boot 3.4.1** — plain `CommandLineRunner`, no embedded web server
 - **Apache Maven** — build tool
 - **Apache POI** (`poi-ooxml` 5.4.0) — reads and writes `.docx`
-- No external NLP/ML dependency (no spaCy, Presidio, or OpenNLP) — see *Approach* above for why
 
 ---
 
